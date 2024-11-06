@@ -14,7 +14,7 @@ class MedicoModelo {
         try {
             const conexion = await crearConexion();
             const [medico] = await conexion.query(`
-                            SELECT p.nombre, p.apellido
+                            SELECT m.id, p.nombre, p.apellido
                             FROM medico m
 	                            JOIN persona p ON m.dni = p.dni;
             `);

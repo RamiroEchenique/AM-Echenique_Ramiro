@@ -1,32 +1,19 @@
 extends ../layout.pug
 
 block js 
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz",
     crossorigin="anonymous")
-    //script(src="/scripts/medicos.js")        
+  //script(src="/scripts/medicos.js")        
 
 block contenido
   .container
     .row
       .col-md-12
-        h1.text-center.mt-5 Bienvenido al Sistema de atenciones medicas  
-        h4.text-center.mb-4 Seleccione un profesional
-
-    .row
-      .col-md-6.offset-md-3
-        select.form-select
-          each medico in medicos
-            option(value=medico.id)= ` ${medico.apellido}  ${medico.nombre}`
+        h1.text-center.mt-5 Agendas del Profesional
             
-    .row
-      .col-md-12 
-        h4.text-center.mb-4 Seleccione una agenda
-    
     .row
       .col-md-6.offset-md-3
         select.form-select
           each agenda in agendas
             option(value=agenda.id)= `${agenda.id} - ${agenda.nombre_especialidad} - Matricula ${agenda.id_medico_especialidad} - ${(agenda.estado == 1) ? 'Activo' : 'Inactivo'}`
-                   
-                        

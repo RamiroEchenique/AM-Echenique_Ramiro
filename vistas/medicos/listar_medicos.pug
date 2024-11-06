@@ -1,15 +1,10 @@
 extends ../layout.pug
 
-block style
-  style.
-    body {
-      background-color: #f0f8ff; /* Ejemplo de color azul claro */
-    }
-
 block js
   script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz",
     crossorigin="anonymous")
+  script(src="/scripts/medicosscript.js")
 
 block contenido
   .container
@@ -21,8 +16,8 @@ block contenido
     .row
       .col-md-6.offset-md-3
         select.form-select#medicoSelect
-          option(value="") Seleccione un médico
           each medico in medicos
-            option(value=medico.id)= `${medico.apellido} ${medico.nombre}`
+            option(value=medico.id)= `${medico.id} - ${medico.apellido} ${medico.nombre}`
+        button.btn.btn-primary.mt-3(onclick="seleccionarMedico()") seleccionar el Profesional
         
-        button.btn.btn-primary.mt-3(onclick="seleccionarMedico()") Seleccionar Profesional
+        button.btn.btn-primary.mt-3(onclick="irAAgenda()") Ir a agenda del Profesional

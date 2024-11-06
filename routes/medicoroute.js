@@ -5,4 +5,6 @@ const MedicoController = require('../controllers/medicocontroller');
 //index
 MedicoRouter.get('/', MedicoController.index);
 
+
+
 module.exports = MedicoRouter;

@@ -15,6 +15,7 @@ app.use(express.urlencoded()); //para poder leer datos de formularios (veer)
 //app.use("/agendas", AgendaRouter);  // asociar AgendaRouter con la ruta base de /agendas
 //app.use("/medicos", MedicoRouter); 
 app.use("/",MedicoRouter) // Redirigir la ruta raíz al controlador de médicos
+app.use("/agendas",AgendaRouter) // Asociar AgendaRouter con la ruta base de /agendas
 
 // Iniciar servidor
 app.listen(3000, () => {

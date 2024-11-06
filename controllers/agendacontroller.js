@@ -10,6 +10,16 @@ class AgendaController {
 
     }
 
+    static async listarAgendas(req, res) {
+         try { 
+            const medicoId = req.params.medicoId; 
+            const agendas = await AgendaModelo.obtenerAgendasPorMedico(medicoId); 
+            console.log("listarAgendas-agendas:",agendas);
+            res.render('agendas/listar_agenda', { agendas }); 
+        } catch (error) { 
+            console.error('Error al obtener agendas:', error); 
+            res.status(500).send('Error al obtener agendas'); } }
+
 
 }
 

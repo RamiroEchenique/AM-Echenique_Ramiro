@@ -24,6 +24,21 @@ class MedicoModelo {
         }
     }
 
+    static async obtenerNombreMedicoPorId(medicoId) {
+        try {
+            const conexion = await crearConexion();
+            const [medico] = await conexion.query(`
+                            SELECT * 
+                            FROM medico m
+	                            JOIN persona p ON m.dni=p.dni
+                            WHERE m.id=?;
+            `, [medicoId]);
+            return medico;
+        } catch (error) {
+            console.error('Error al obtener medicos:', error);
+        }
+    }
+
 }
 
 module.exports = MedicoModelo;

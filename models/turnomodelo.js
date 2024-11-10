@@ -22,8 +22,8 @@ class TurnoModelo {
         }
 
         static async obtenerTurnosPorFecha(fecha,id_agenda) {
-            console.log("Modelo obtenerTurnosPorFecha-fecha:",fecha);
-            console.log("Modelo obtenerTurnosPorFecha-id_agenda:",id_agenda);
+            //console.log("Modelo obtenerTurnosPorFecha-fecha:",fecha);
+            //console.log("Modelo obtenerTurnosPorFecha-id_agenda:",id_agenda);
             try {
                 const conexion = await crearConexion();
                 const turnos = await conexion.query(`

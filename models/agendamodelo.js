@@ -21,7 +21,7 @@ class AgendaModelo {
     }
 
     static async obtenerAgendasPorMedico(medicoId) {
-        console.log("obtenerAgendasPorMedico-medicoId:",medicoId);
+        //console.log("obtenerAgendasPorMedico-medicoId:",medicoId);
         //medicoId = 1;
         //console.log("medicoId despues:",medicoId);
          try { 

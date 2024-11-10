@@ -46,12 +46,12 @@ class AgendaController {
     // Método para obtener los turnos por fecha y agendaId, devolviendo JSON
     static async obtenerTurnosPorFecha(req, res) {
         try {
-            console.log("-------------------------------inicio agenda controller - obtener turnos por fecha -------------------------------------------------")
+            //console.log("-------------------------------inicio agenda controller - obtener turnos por fecha -------------------------------------------------")
             const medicoId = req.params.medicoId;
             const fecha = req.query.fecha;
             const agendaId = req.query.agendaId;
     
-            console.log("Datos recibidos: ", { medicoId, fecha, agendaId }); // Log para verificar
+            //console.log("Datos recibidos: ", { medicoId, fecha, agendaId }); // Log para verificar
     
             // Obtener turnos específicos para la fecha y agenda seleccionada
             const turnos = await TurnoModelo.obtenerTurnosPorFecha(fecha, agendaId);
@@ -59,7 +59,7 @@ class AgendaController {
             turnos[0].forEach(turno => { turno.fecha = new Date(turno.fecha).toLocaleDateString('es-AR'); });
     
             res.json(turnos[0]);
-            console.log("-------------------------------fin agenda controller - obtener turnos por fecha -------------------------------------------------")
+            //console.log("-------------------------------fin agenda controller - obtener turnos por fecha -------------------------------------------------")
         } catch (error) {
             console.error('Error al obtener turnos por fecha y agenda:', error);
             res.status(500).send('Error al obtener turnos');

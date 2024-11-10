@@ -12,6 +12,4 @@ AgendaRouter.get('/:medicoId/turnos', AgendaController.obtenerTurnosPorFecha);
 AgendaRouter.get('/:medicoId', AgendaController.listarAgendas);
 
 
-
-
 module.exports = AgendaRouter;

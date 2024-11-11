@@ -71,6 +71,12 @@ function actualizarTablaTurnos(turnos) {
   }
 }
 
+function verHCE(id_paciente) {
+  //const id_paciente = document.getElementById('id_paciente').value;
+  //window.location.href = `/hce/${id_paciente}`;
+  window.location.href = `/pacientes/verhce/${id_paciente}`;
+}
+
 // Llama a la función para establecer la fecha actual
 setFechaActual();
 

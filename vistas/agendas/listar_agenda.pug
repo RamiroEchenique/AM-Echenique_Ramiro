@@ -22,13 +22,14 @@ block contenido
           each agenda in agendas
             option(value=agenda.id data-medico-id=agenda.medicoId)= `${agenda.id} - ${agenda.nombre_especialidad} - Matricula ${agenda.id_medico_especialidad} - ${(agenda.estado == 1) ? 'Activo' : 'Inactivo'}`
 
-        input(type="date" class="form-control mt-3" id="fecha-turno" name="fecha-turno" value="#{fechaSeleccionada || ''}")
+        input(type="date" class="form-control mt-3" id="fecha-turno" name="fecha-turno" value=fechaSeleccionada || '')
+
 
     .row.mt-5
       .col-md-12
         h3.text-center.mt-5 Turnos del Día
-        table.table.table-striped table-hover table-bordered
-          thead
+        table.table.table-striped 
+          thead.table.thead-dark
             tr
               th Fecha
               th Paciente 
@@ -53,6 +54,4 @@ block contenido
             else
               tr
                 td(colspan="8") No hay turnos disponibles para la fecha seleccionada
-
-
   

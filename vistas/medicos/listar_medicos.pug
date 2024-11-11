@@ -17,6 +17,5 @@ block contenido
       .col-md-6.offset-md-3
         select.form-select#medicoSelect
           each medico in medicos
-            option(value=medico.id)= `${medico.id} - ${medico.apellido} ${medico.nombre}`
-        
+            option(value=medico.id)= `${medico.id} - ${medico.apellido} ${medico.nombre}` 
         button.btn.btn-primary.mt-3(onclick="irAAgenda()") Ir a agenda del Profesional

@@ -58,6 +58,9 @@ function actualizarTablaTurnos(turnos) {
               <td>${turno.hora_inicio}</td>
               <td>${turno.hora_fin}</td>
               <td>${turno.estado}</td>
+              <td><button class="btn btn-info" onclick="verHCE(${turno.id_paciente})">Ver</button></td>
+              <td><button class="btn btn-success" onclick="IrHCE(${turno.id_paciente})">Ir</button></td>
+
           `;
           tbody.appendChild(row);
       });

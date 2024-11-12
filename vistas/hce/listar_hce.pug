@@ -74,12 +74,14 @@ block contenido
                     th Fecha
                     th Motivo de la consulta
                     th Evolucion
+                    th Medico
                 tbody
                   each evolucion in evoluciones
                     tr
                       td= evolucion.fecha
                       td= evolucion.motivo
                       td= evolucion.descripcion
+                      td= `${evolucion.apellido} ${evolucion.nombre}` 
               
           .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab")
             .col-md-12
@@ -89,6 +91,14 @@ block contenido
                     th Fecha
                     th Motivo de la consulta
                     th Diagnostico
+                    th Medico
+                tbody
+                  each diagnostico in diagnosticos
+                    tr
+                      td= diagnostico.fecha
+                      td= diagnostico.motivo
+                      td= diagnostico.descripcion
+                      td= `${diagnostico.apellido} ${diagnostico.nombre}`     
           .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
             .col-md-12
               table.table.table-striped 
@@ -100,6 +110,7 @@ block contenido
                     th Importancia 
                     th fecha desde 
                     th fecha hasta
+                    th Medico
           .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
             .col-md-12
               table.table.table-striped 
@@ -111,6 +122,7 @@ block contenido
                     th Antecedentes patólogicos 
                     th fecha desde 
                     th fecha hasta
+                    th Medico
           .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
             .col-md-12
               table.table.table-striped 
@@ -119,6 +131,7 @@ block contenido
                     th Fecha
                     th Motivo de la consulta
                     th Hábitos
+                    th Medico
           .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab")
             .col-md-12
               table.table.table-striped 
@@ -127,4 +140,5 @@ block contenido
                     th Fecha
                     th MMotivo de la consulta
                     th Medicamentos
+                    th Medico
 

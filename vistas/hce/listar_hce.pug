@@ -72,6 +72,7 @@ block contenido
                 thead.table.thead-dark
                   tr
                     th Fecha
+                    th Hora
                     th Motivo de la consulta
                     th Evolucion
                     th Medico
@@ -79,6 +80,7 @@ block contenido
                   each evolucion in evoluciones
                     tr
                       td= evolucion.fecha
+                      td= evolucion.hora
                       td= evolucion.motivo
                       td= evolucion.descripcion
                       td= `${evolucion.apellido} ${evolucion.nombre}` 
@@ -89,15 +91,19 @@ block contenido
                 thead.table.thead-dark
                   tr
                     th Fecha
+                    th Hora
                     th Motivo de la consulta
                     th Diagnostico
+                    th Tipo
                     th Medico
                 tbody
                   each diagnostico in diagnosticos
                     tr
                       td= diagnostico.fecha
+                      td= diagnostico.hora
                       td= diagnostico.motivo
                       td= diagnostico.descripcion
+                      td= diagnostico.tipo
                       td= `${diagnostico.apellido} ${diagnostico.nombre}`     
           .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
             .col-md-12
@@ -105,24 +111,46 @@ block contenido
                 thead.table.thead-dark
                   tr
                     th Fecha
+                    Th Hora
                     th Motivo de la consulta
                     th Nombre 
                     th Importancia 
                     th fecha desde 
                     th fecha hasta
                     th Medico
+                tbody
+                  each alergia in alergias
+                    tr
+                      td= alergia.fecha
+                      td= alergia.hora
+                      td= alergia.motivo
+                      td= alergia.nombre_alergia
+                      td= alergia.importancia
+                      td= alergia.fecha_desde 
+                      td= alergia.fecha_hasta
+                      td= `${alergia.apellido} ${alergia.nombre}`      
           .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
             .col-md-12
               table.table.table-striped 
                 thead.table.thead-dark
                   tr
                     th Fecha
+                    th Hora
                     th Motivo de la consulta
-                    th Nombre 
-                    th Antecedentes patólogicos 
+                    th Descripcion
                     th fecha desde 
                     th fecha hasta
                     th Medico
+                tbody
+                  each antecedente in antecedentes
+                    tr
+                      td= antecedente.fecha
+                      td= antecedente.hora
+                      td= antecedente.motivo
+                      td= antecedente.descripcion
+                      td= antecedente.fecha_desde 
+                      td= antecedente.fecha_hasta
+                      td= `${antecedente.apellido} ${antecedente.nombre}`      
           .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
             .col-md-12
               table.table.table-striped 

@@ -3,6 +3,9 @@ const EvolucionModelo = require('../models/evolucionmodelo1');
 const DiagnosticoModelo = require('../models/diagnosticomodelo');
 const AlergiaModelo = require('../models/alergiamodelo');
 const AntecedenteModelo = require('../models/antecedentemodelo');
+const HabitoModelo = require('../models/habitomodelo');
+const MedicamentoModelo = require('../models/medicamentomodelo');
+const AtencionModelo = require('../models/atencionmodelo');
 
 class PacienteController {
     static async obtenerPacienteyHCE(req, res) {
@@ -34,14 +37,58 @@ class PacienteController {
             antecedentes[0].forEach(antecedente => { antecedente.fecha_desde = new Date(antecedente.fecha_desde).toLocaleDateString('es-AR'); });//ver para nulos
             antecedentes[0].forEach(antecedente => { antecedente.fecha_hasta = new Date(antecedente.fecha_hasta).toLocaleDateString('es-AR'); }); // ver para nulos
             console.log("antecedentes:", antecedentes[0]);
+            //HCE:Habitos
+            const habitos = await HabitoModelo.obtenerhabitos(pacienteId);
+            habitos[0].forEach(habito => { habito.fecha = new Date(habito.fecha).toLocaleDateString('es-AR'); });
+            habitos[0].forEach(habito => { habito.fecha_desde = new Date(habito.fecha_desde).toLocaleDateString('es-AR'); });//ver para nulos
+            habitos[0].forEach(habito => { habito.fecha_hasta = new Date(habito.fecha_hasta).toLocaleDateString('es-AR'); }); // ver para nulos
+            console.log("habitos:", habitos[0]);
+            //HCE:Medicamentos
+            const medicamentos = await MedicamentoModelo.obtenermedicamentos(pacienteId);
+            medicamentos[0].forEach(medicamento => { medicamento.fecha = new Date(medicamento.fecha).toLocaleDateString('es-AR'); });
+            console.log("medicamentos:", medicamentos[0]);
 
-            const datos = { paciente: paciente[0], evoluciones: evoluciones[0], diagnosticos: diagnosticos[0], alergias: alergias[0], antecedentes: antecedentes[0] };
-            //const datos = { paciente: paciente[0], evoluciones: evoluciones[0], diagnosticos: diagnosticos[0], alergias: alergias[0] };
+            const datos = { paciente: paciente[0], 
+                            evoluciones: evoluciones[0], 
+                            diagnosticos: diagnosticos[0], 
+                            alergias: alergias[0], 
+                            antecedentes: antecedentes[0], 
+                            habitos: habitos[0],
+                            medicamentos: medicamentos[0] };
+    
             res.render('hce/listar_hce', datos);
             console.log("----fin paciente controller - obtener paciente----");
         }catch (error) {
             
         }
+    }
+
+    static async mostrarAtencion(req, res) {
+        try {
+            console.log("----inicio paciente controller - mostrar atencion----");
+            //Paciente
+            const turnoId = req.params.turnoId;
+            console.log("turnoId:", turnoId);
+            const paciente = await PacienteModelo.obtenerPacientesPorTurnoId(turnoId);
+            paciente[0].forEach(paciente => { paciente.fecha = new Date(paciente.fecha).toLocaleDateString('es-AR'); });
+            paciente[0].forEach(paciente => { paciente.fecha_nacimiento = new Date(paciente.fecha_nacimiento).toLocaleDateString('es-AR'); });
+            console.log("paciente:", paciente[0]);
+            res.render('hce/crear_atencion', {paciente: paciente[0]}); 
+            console.log("----fin paciente controller - mostrar atencion----");
+        } catch (error) {  
+            console.error('Error al crear atención:', error); 
+        }
+
+    }
+
+    static async guardarAtencion (req, res) {
+        const turnoId = req.params.turnoId;     console.log("Guardar atencion - turnoId:", turnoId);
+        const evoluciontexto = req.body.evoluciontexto; console.log("Guardar atencion - evoluciontexto:", evoluciontexto);
+        if(AtencionModelo.crear(turnoId)){
+            console.log("Atencion creada con exito");
+        }
+
+
     }
 }
 

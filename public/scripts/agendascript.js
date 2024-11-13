@@ -58,8 +58,9 @@ function actualizarTablaTurnos(turnos) {
               <td>${turno.hora_inicio}</td>
               <td>${turno.hora_fin}</td>
               <td>${turno.estado}</td>
+              <td>${turno.idturno}</td>
               <td><button class="btn btn-info" onclick="verHCE(${turno.id_paciente})">Ver</button></td>
-              <td><button class="btn btn-success" onclick="IrHCE(${turno.id_paciente})">Ir</button></td>
+              <td><button class="btn btn-success" onclick="Atender(${turno.idturno})">Atender</button></td>
 
           `;
           tbody.appendChild(row);
@@ -72,9 +73,11 @@ function actualizarTablaTurnos(turnos) {
 }
 
 function verHCE(id_paciente) {
-  //const id_paciente = document.getElementById('id_paciente').value;
-  //window.location.href = `/hce/${id_paciente}`;
   window.location.href = `/pacientes/verhce/${id_paciente}`;
+}
+
+function Atender(turnoId) {
+  window.location.href = `/pacientes/atender/${turnoId}`;
 }
 
 // Llama a la función para establecer la fecha actual

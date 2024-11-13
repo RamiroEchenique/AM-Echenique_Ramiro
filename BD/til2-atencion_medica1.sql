@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2024 a las 18:05:12
+-- Tiempo de generación: 12-11-2024 a las 04:15:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,19 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `til2-atencion_medica1`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `obtenerAgendaConEspecialidad` ()   BEGIN
-    SELECT a.id, a.id_medico_especialidad, a.estado, e.nombre_especialidad
-    FROM agenda a
-        JOIN medico_especialidad me ON a.id_medico_especialidad = me.matricula
-        JOIN especialidad e ON me.id_especialidad = e.id;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +39,9 @@ CREATE TABLE `agenda` (
 
 INSERT INTO `agenda` (`id`, `id_medico_especialidad`, `estado`) VALUES
 (1, 2566, 1),
-(2, 2588, 1);
+(2, 2588, 1),
+(3, 3510, 1),
+(4, 3129, 1);
 
 -- --------------------------------------------------------
 
@@ -65,9 +54,16 @@ CREATE TABLE `alergias` (
   `id_alergias_nomecladas` int(11) NOT NULL,
   `id_alergia_importancia` int(11) NOT NULL,
   `fecha_desde` date NOT NULL,
-  `fecha_hasta` date NOT NULL,
+  `fecha_hasta` date DEFAULT NULL,
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `alergias`
+--
+
+INSERT INTO `alergias` (`id`, `id_alergias_nomecladas`, `id_alergia_importancia`, `fecha_desde`, `fecha_hasta`, `id_atenciones`) VALUES
+(1, 4, 3, '2018-09-01', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -77,14 +73,14 @@ CREATE TABLE `alergias` (
 
 CREATE TABLE `alergias_nomecladas` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL
+  `nombre_alergia` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `alergias_nomecladas`
 --
 
-INSERT INTO `alergias_nomecladas` (`id`, `nombre`) VALUES
+INSERT INTO `alergias_nomecladas` (`id`, `nombre_alergia`) VALUES
 (1, 'Al maní'),
 (2, 'Al polen'),
 (3, 'A pelos de animales'),
@@ -120,9 +116,16 @@ CREATE TABLE `antecedentes_patologicos` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `fecha_desde` date NOT NULL,
-  `fecha_hasta` date NOT NULL,
+  `fecha_hasta` date DEFAULT NULL,
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `antecedentes_patologicos`
+--
+
+INSERT INTO `antecedentes_patologicos` (`id`, `descripcion`, `fecha_desde`, `fecha_hasta`, `id_atenciones`) VALUES
+(1, 'Hipertenso', '2014-09-01', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -137,6 +140,14 @@ CREATE TABLE `atenciones` (
   `id_turnos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `atenciones`
+--
+
+INSERT INTO `atenciones` (`id`, `fecha`, `hora`, `id_turnos`) VALUES
+(1, '2024-10-31', '09:01:00', 3),
+(2, '2024-10-31', '09:16:00', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -146,9 +157,16 @@ CREATE TABLE `atenciones` (
 CREATE TABLE `diagnostico` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(200) NOT NULL,
-  `tipo` int(11) NOT NULL,
+  `tipo` varchar(11) NOT NULL,
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `diagnostico`
+--
+
+INSERT INTO `diagnostico` (`id`, `descripcion`, `tipo`, `id_atenciones`) VALUES
+(2, 'Gastritis', 'Preliminar', 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +203,13 @@ CREATE TABLE `evoluciones` (
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `evoluciones`
+--
+
+INSERT INTO `evoluciones` (`id`, `descripcion`, `id_atenciones`) VALUES
+(1, 'Evolucion 1 ....', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -195,9 +220,16 @@ CREATE TABLE `habitos` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `fecha_desde` date NOT NULL,
-  `fecha_hasta` date NOT NULL,
+  `fecha_hasta` date DEFAULT NULL,
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `habitos`
+--
+
+INSERT INTO `habitos` (`id`, `descripcion`, `fecha_desde`, `fecha_hasta`, `id_atenciones`) VALUES
+(1, 'Fumador', '2014-01-01', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +245,13 @@ CREATE TABLE `medicamentos` (
   `indicacion` varchar(100) NOT NULL,
   `id_atenciones` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`id`, `nombre_generico`, `nombre_comercial`, `cantidad`, `indicacion`, `id_atenciones`) VALUES
+(1, 'Amoxidal', 'Amoxidal 500', '500 mg', 'un comprimido cada 12 hs', 1);
 
 -- --------------------------------------------------------
 
@@ -279,7 +318,11 @@ CREATE TABLE `paciente` (
 INSERT INTO `paciente` (`id`, `dni`, `ObraSocial`, `estado`) VALUES
 (1, 36555621, 'Sancor', 1),
 (2, 35236364, 'Particular', 1),
-(3, 22597868, 'OSDE', 1);
+(3, 22597868, 'OSDE', 1),
+(4, 29429136, 'Visitar', 1),
+(5, 40597513, 'Dosep', 1),
+(6, 26987456, 'Sancor', 1),
+(7, 50539965, 'Visitar', 1);
 
 -- --------------------------------------------------------
 
@@ -303,11 +346,15 @@ CREATE TABLE `persona` (
 
 INSERT INTO `persona` (`dni`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `telefono`, `Email`) VALUES
 (22597868, 'Ronio', 'Guaycochea', 'Masculino', '1970-03-05', '2664111235', 'rguaycochea@gmail.com'),
+(26987456, 'Maria', 'Quiroga', 'Masculino', '1980-06-09', '', 'mquiroga@gmail.com'),
+(29429136, 'Carina', 'Leggio', 'Femenino', '1982-09-21', '', 'cleggio@gmail.com'),
 (31533950, 'Juan', 'Bossio', 'Masculino', '1984-03-23', '2664236588', 'jbossio@gmail.com'),
 (32981529, 'Betiana', 'Rodriguez', 'Femenino', '1994-08-18', '2664336677', 'brodriguez@gmail.com'),
 (35236364, 'Antonio', 'Lorenzo', 'Masculino', '1996-12-09', '2664335125', 'alorenzo@gmail.com'),
 (36555621, 'Pablo', 'Funes', 'Masculino', '1995-10-31', '2664985126', 'pfunes@gmail.com'),
-(38237985, 'Bruno', 'Magni', 'Masculino', '1990-04-04', '2664987456', 'bmagni@gmail.com');
+(38237985, 'Bruno', 'Magni', 'Masculino', '1990-04-04', '2664987456', 'bmagni@gmail.com'),
+(40597513, 'Pablo', 'Polanco', 'Masculino', '1979-05-20', '2664123969', 'ppolanco@gmail.com'),
+(50539965, 'Joaquin', 'Perez', 'Masculino', '2010-11-05', '', '');
 
 -- --------------------------------------------------------
 
@@ -333,7 +380,12 @@ CREATE TABLE `turnos` (
 INSERT INTO `turnos` (`id`, `id_agenda`, `id_paciente`, `fecha`, `motivo`, `hora_inicio`, `hora_fin`, `id_estado`) VALUES
 (3, 1, 1, '2024-10-31', 'Dolor de espalda', '09:00:00', '09:15:00', 1),
 (4, 1, 2, '2024-10-31', 'chequeo general', '09:15:00', '09:30:00', 1),
-(5, 1, 3, '2024-10-31', 'Dolor abdominal', '09:30:00', '09:45:00', 1);
+(5, 1, 3, '2024-10-31', 'Dolor abdominal', '09:30:00', '09:45:00', 1),
+(7, 2, 4, '2024-11-15', 'operación: apéndice ', '09:00:00', '09:15:00', 1),
+(8, 2, 5, '2024-11-15', 'consulta para operar', '09:15:00', '09:30:00', 1),
+(9, 3, 6, '2024-11-14', 'Chequeo general', '10:00:00', '10:15:00', 1),
+(10, 4, 7, '2024-11-15', 'control niñez', '12:00:00', '12:15:00', 1),
+(12, 3, 1, '2024-11-10', 'dolor lumbar', '12:00:00', '12:15:00', 1);
 
 -- --------------------------------------------------------
 
@@ -488,13 +540,13 @@ ALTER TABLE `turnos_estado`
 -- AUTO_INCREMENT de la tabla `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `alergias`
 --
 ALTER TABLE `alergias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `alergias_nomecladas`
@@ -512,19 +564,19 @@ ALTER TABLE `alergia_importancia`
 -- AUTO_INCREMENT de la tabla `antecedentes_patologicos`
 --
 ALTER TABLE `antecedentes_patologicos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `atenciones`
 --
 ALTER TABLE `atenciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `diagnostico`
 --
 ALTER TABLE `diagnostico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidad`
@@ -536,19 +588,19 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `evoluciones`
 --
 ALTER TABLE `evoluciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `habitos`
 --
 ALTER TABLE `habitos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `medicamentos`
 --
 ALTER TABLE `medicamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `medico`
@@ -560,13 +612,13 @@ ALTER TABLE `medico`
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `turnos_estado`

@@ -28,10 +28,9 @@ class AgendaController {
             const medico = await MedicoModelo.obtenerNombreMedicoPorId(medicoId);
             const turnos = await TurnoModelo.obtenerTurnosPorFecha(fecha, agendas[0].id);
             turnos[0].forEach(turno => { turno.fecha = new Date(turno.fecha).toLocaleDateString('es-AR'); });
-            //console.log("agendas.medicoId:", agendas[0].medicoId);
             console.log("listarAgendas-medicos:", medico[0]);
             console.log("listarAgendas-agendas:", agendas[0]);
-            console.log("listarAgendas-turnos:", turnos);
+            //console.log("listarAgendas-turnos:", turnos);
             console.log("turnos.length:", turnos[0].length);
             console.log("--------------------------------------fin agenda controller- listar agendas -------------------------------------------------------")
             res.render('agendas/listar_agenda', { agendas, medico: medico[0], turnos: turnos[0] });
@@ -57,6 +56,7 @@ class AgendaController {
             const turnos = await TurnoModelo.obtenerTurnosPorFecha(fecha, agendaId);
     
             turnos[0].forEach(turno => { turno.fecha = new Date(turno.fecha).toLocaleDateString('es-AR'); });
+            console.log("turnos:", turnos[0]);
     
             res.json(turnos[0]);
             //console.log("-------------------------------fin agenda controller - obtener turnos por fecha -------------------------------------------------")

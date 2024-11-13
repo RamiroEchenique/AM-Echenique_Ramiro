@@ -22,6 +22,22 @@ class PacienteModelo {
         }
     }
 
+    static async obtenerPacientesPorTurnoId(turnoId) {
+        try {
+            const conexion = await crearConexion();
+            const paciente = await conexion.query(`
+                    SELECT * 
+                    FROM turnos t
+                    JOIN paciente pa ON pa.id=t.id_paciente
+                    JOIN persona pe ON pe.dni=pa.dni
+                    WHERE t.idturno=?;`, [turnoId]);
+            return paciente;
+        } catch (error) {
+            console.error('Error al obtener paciente por id:', error);
+        }
+
+    }
+
 }
 
 module.exports = PacienteModelo

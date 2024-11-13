@@ -37,8 +37,10 @@ block contenido
               th Hora Inicio
               th Hora Fin
               th Estado
+              th id
               th HCE
               th Atención
+              
           tbody
             if turnos.length
               each turno in turnos
@@ -49,8 +51,10 @@ block contenido
                   td= turno.hora_inicio
                   td= turno.hora_fin
                   td= turno.estado
+                  td= turno.idturno
                   td button.btn.btn-info(onclick=`verHCE(${turno.id_paciente})`) Ver
-                  td button.btn.btn-success(onclick=`Ir(${turno.id_paciente})`) Ir
+                  td button.btn.btn-success(onclick=`Atender(${turno.idturno})`) Atender
+                  
             else
               tr
                 td(colspan="8") No hay turnos disponibles para la fecha seleccionada

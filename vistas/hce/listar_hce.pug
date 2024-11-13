@@ -49,20 +49,20 @@ block contenido
     .row.mt-4
         
       .col-md-12
-        h4.text-center.mt-4 Historia Clínica Electrónica (HCE)
+        h3.text-center.mt-4 Historia Clínica Electrónica (HCE)
         ul.nav.nav-tabs#hceTabs(role='tablist')
-          li.nav-item
-            a.nav-link.active#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
-          li.nav-item
-            a.nav-link#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
-          li.nav-item
-            a.nav-link#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
-          li.nav-item
-            a.nav-link#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes
-          li.nav-item
-            a.nav-link#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
-          li.nav-item
-            a.nav-link#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
+          li.nav-item.mr-2 
+            a.nav-link.active.bg-primary.text-white#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones 
+          li.nav-item.mr-2  
+            a.nav-link.bg-primary.text-white#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos 
+          li.nav-item.mr-2  
+            a.nav-link.bg-primary.text-white#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias 
+          li.nav-item.mr-2  
+            a.nav-link.bg-primary.text-white#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos 
+          li.nav-item.mr-2  
+            a.nav-link.bg-primary.text-white#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos 
+          li.nav-item.mr-2  
+            a.nav-link.bg-primary.text-white#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
 
         .tab-content#hceTabsContent
           .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
@@ -75,7 +75,7 @@ block contenido
                     th Hora
                     th Motivo de la consulta
                     th Evolucion
-                    th Medico
+                    th Atendido por Médico
                 tbody
                   each evolucion in evoluciones
                     tr
@@ -95,7 +95,7 @@ block contenido
                     th Motivo de la consulta
                     th Diagnostico
                     th Tipo
-                    th Medico
+                    th Atendido por Médico
                 tbody
                   each diagnostico in diagnosticos
                     tr
@@ -117,7 +117,7 @@ block contenido
                     th Importancia 
                     th fecha desde 
                     th fecha hasta
-                    th Medico
+                    th Atendido por Médico
                 tbody
                   each alergia in alergias
                     tr
@@ -131,6 +131,7 @@ block contenido
                       td= `${alergia.apellido} ${alergia.nombre}`      
           .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
             .col-md-12
+             h5.text-center Antecedentes Patológicos
               table.table.table-striped 
                 thead.table.thead-dark
                   tr
@@ -140,7 +141,7 @@ block contenido
                     th Descripcion
                     th fecha desde 
                     th fecha hasta
-                    th Medico
+                    th Atendido por Médico
                 tbody
                   each antecedente in antecedentes
                     tr
@@ -153,20 +154,49 @@ block contenido
                       td= `${antecedente.apellido} ${antecedente.nombre}`      
           .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
             .col-md-12
+              h5.text-center Hábitos
               table.table.table-striped 
                 thead.table.thead-dark
                   tr
                     th Fecha
+                    th Hora
                     th Motivo de la consulta
-                    th Hábitos
-                    th Medico
+                    th Descripcion
+                    th fecha desde 
+                    th fecha hasta
+                    th Atendido por Médico
+                tbody.table-group-divider
+                  each habito in habitos
+                    tr
+                      td= habito.fecha
+                      td= habito.hora
+                      td= habito.motivo
+                      td= habito.descripcion
+                      td= habito.fecha_desde 
+                      td= habito.fecha_hasta
+                      td= `${habito.apellido} ${habito.nombre}`      
           .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab")
             .col-md-12
+              h5.text-center Medicamentos en uso
               table.table.table-striped 
                 thead.table.thead-dark
                   tr
                     th Fecha
-                    th MMotivo de la consulta
-                    th Medicamentos
-                    th Medico
+                    th Hora
+                    th Motivo de la consulta
+                    th Nombre genérico
+                    th Nombre comercial 
+                    th Indicaciones 
+                    th Atendido por Médico
+                tbody
+                  each medicamento in medicamentos
+                    tr
+                      td= medicamento.fecha
+                      td= medicamento.hora
+                      td= medicamento.motivo
+                      td= medicamento.nombre_generico
+                      td= medicamento.nombre_comercial 
+                      td= medicamento.indicacion
+                      td= `${medicamento.apellido} ${medicamento.nombre}`    
+                    
 

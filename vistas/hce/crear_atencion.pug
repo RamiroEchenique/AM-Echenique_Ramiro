@@ -1,0 +1,99 @@
+extends ../layout.pug
+
+block js 
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz",
+    crossorigin="anonymous")
+
+block contenido
+  .container.mt-5
+    .row
+      .col-md-12
+        h1.text-center.mt-0.mb-5 Sistema de Atenciones Médicas  
+      .col-md-10.offset-md-1
+        // Resto del contenedor principal
+        .row
+          // Columna de Detalles del Turno, en su propio recuadro
+          .col-md-4
+            .card.border-primary.mb-3 
+              .card-body
+                h4 Detalles del Turno
+                ul.list-group.list-group-flush
+                  li.list-group-item
+                    strong Día: 
+                    | #{paciente[0].fecha}  
+                  li.list-group-item
+                    strong Hora: 
+                    | #{paciente[0].hora_inicio} - #{paciente[0].hora_fin}
+                  li.list-group-item
+                    strong Motivo: 
+                    | #{paciente[0].motivo}
+                  li.list-group-item
+                    strong
+                  li.list-group-item
+                    strong       
+          
+          // Columna de Datos Personales
+          .col-md-4
+            .card
+              .card-body
+                h4 Datos Personales
+                ul.list-group.list-group-flush
+                  li.list-group-item
+                    strong Nombre: 
+                    | #{paciente[0].nombre} #{paciente[0].apellido}
+                  li.list-group-item
+                    strong Fecha de Nacimiento: 
+                    | #{paciente[0].fecha_nacimiento}
+                  li.list-group-item
+                    strong Género: 
+                    | #{paciente[0].genero}
+                  li.list-group-item
+                    strong Documento de Identidad: 
+                    | #{paciente[0].dni}
+          
+          // Columna de Contacto
+          .col-md-4
+            .card
+              .card-body
+                h4 Contacto
+                ul.list-group.list-group-flush
+                  li.list-group-item
+                    strong Teléfono: 
+                    | #{paciente[0].telefono}
+                  li.list-group-item
+                    strong Email: 
+                    | #{paciente[0].Email}
+                  li.list-group-item
+                    strong Obra Social: 
+                    | #{paciente[0].ObraSocial}
+                  li.list-group-item
+                    strong Estado: 
+                    | #{paciente[0].estado ? 'Activo' : 'Inactivo'}
+
+    .row.mt-4
+      .col-md-12
+        h4.text-center.mt-4 Historia Clínica Electrónica (HCE)
+        ul.nav.nav-tabs#hceTabs(role='tablist')
+          li.nav-item
+            a.nav-link.active#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
+          li.nav-item
+            a.nav-link#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
+          li.nav-item
+            a.nav-link#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
+          li.nav-item
+            a.nav-link#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos
+          li.nav-item
+            a.nav-link#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
+          li.nav-item
+            a.nav-link#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
+
+        .tab-content#hceTabsContent
+          .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}`)
+              .mb-3
+                label(for="motivo") Detalle de la evolución
+                textarea.form-control(name="evoluciontexto" id="evoluciontexto")
+              .mb-3
+                button.btn.btn-primary(type="submit") Guardar Evolución
+          // Repite para las otras pestañas

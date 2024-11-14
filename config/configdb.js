@@ -37,7 +37,7 @@ const crearConexion = async () => {
 
 //module.exports = crearConexion;
 
-// con pool de conexiones
+// con pool de conexiones a clever cloud
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
@@ -52,3 +52,21 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+
+// con pool de conexiones a xampp
+/*const mysql = require('mysql2/promise');
+
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'til2-atencion_medica1',
+    waitForConnections: true,
+    connectionLimit: 5, // Límite de conexiones
+    queueLimit: 0 // Sin límite de solicitudes en espera
+    
+});
+
+module.exports = pool;*/
+

@@ -11,7 +11,9 @@ app.set('views', 'vistas');
 
 // Configurar directorio de archivos estáticos
 app.use(express.static('public'));
-app.use(express.urlencoded()); //para poder leer datos de formularios (veer)
+//app.use(express.urlencoded()); //para poder leer datos de formularios (veer)
+app.use(express.urlencoded({ extended: true }));
+
 
 //app.use("/agendas", AgendaRouter);  // asociar AgendaRouter con la ruta base de /agendas
 //app.use("/medicos", MedicoRouter); 
@@ -20,11 +22,11 @@ app.use("/agendas",AgendaRouter) // Asociar AgendaRouter con la ruta base de /ag
 app.use("/pacientes",PacienteRouter)
 
 // Iniciar servidor
-/*app.listen(3000, () => {
+app.listen(3000, () => {
     console.log('Servidor corriendo en el puerto 3000');
-});*/
+});
 
-const port = process.env.PORT || 3000;
+/*const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
-});
+});*/

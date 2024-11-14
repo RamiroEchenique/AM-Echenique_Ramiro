@@ -7,7 +7,10 @@ const PacienteRouter = require('./routes/pacienteroute');
 
 // Configurar Pug como motor de plantillas
 app.set('view engine', 'pug');
-app.set('views', 'vistas');
+//app.set('views', 'vistas');
+const path = require('path');
+app.set('views', path.join(__dirname, 'vistas'));
+
 
 // Configurar directorio de archivos estáticos
 app.use(express.static('public'));

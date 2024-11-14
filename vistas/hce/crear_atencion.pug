@@ -4,9 +4,29 @@ block js
   script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz",
     crossorigin="anonymous")
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const templateDropdown = document.getElementById('templateDropdown');
+      const evolucionTexto = document.getElementById('evoluciontexto');
+
+      templateDropdown.addEventListener('change', (event) => {
+        const template = event.target.value;
+        switch (template) {
+          case 'template1':
+            evolucionTexto.value = "Fecha y hora: #{paciente[0].fecha}  #{paciente[0].hora_inicio} \n\nMotivo de la consulta: #{paciente[0].motivo}  \n\nTratamiento recomendado: \n\nObservaciones: ";
+            break;
+          case 'template2':
+            evolucionTexto.value = "Fecha: #{paciente[0].fecha}  \n\nHora: #{paciente[0].hora_inicio}  \n\nMotivo: #{paciente[0].motivo}  \n\nTratamiento: \n\nComentarios: ";
+            break;
+          default:
+            evolucionTexto.value = '';
+            break;
+        }
+      });
+    });
 
 block contenido
-  .container.mt-5
+  .container.mt-2
     .row
       .col-md-12
         h1.text-center.mt-0.mb-5 Sistema de Atenciones Médicas  
@@ -71,9 +91,9 @@ block contenido
                     strong Estado: 
                     | #{paciente[0].estado ? 'Activo' : 'Inactivo'}
 
-    .row.mt-4
+    .row.mt-0
       .col-md-12
-        h4.text-center.mt-4 Historia Clínica Electrónica (HCE)
+        h4.text-center.mt-4 ATENCIÓN MÉDICA
         ul.nav.nav-tabs#hceTabs(role='tablist')
           li.nav-item
             a.nav-link.active#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
@@ -92,8 +112,79 @@ block contenido
           .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}`)
               .mb-3
-                label(for="motivo") Detalle de la evolución
-                textarea.form-control(name="evoluciontexto" id="evoluciontexto")
+                label(for="templateDropdown") Seleccionar Template
+                select.form-control#templateDropdown
+                  option(value="") -- Seleccione un Template --
+                  option(value="template1") Template 1
+                  option(value="template2") Template 2
               .mb-3
-                button.btn.btn-primary(type="submit") Guardar Evolución
-          // Repite para las otras pestañas
+                label(for="motivo") Detalle de la evolución
+                textarea.form-control(name="evoluciontexto" id="evoluciontexto" rows="8")
+
+          .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab") 
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/diagnostico`) 
+              .mb-3 
+                label(for="diagnostico1") Diagnóstico 1 
+                textarea.form-control(name="diagnostico1" id="diagnostico1" rows="3") 
+              .mb-3 
+                label(for="diagnostico2") Diagnóstico 2 
+                textarea.form-control(name="diagnostico2" id="diagnostico2" rows="3")
+
+          //- Pestaña de Alergias
+          .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
+            h4.mt-2 Registrar Nueva Alergia
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/alergias`)
+              .mb-3
+                label(for="nombre") Nombre de la alergia
+                input.form-control(type="text" name="nombre" required)
+              .mb-3
+                label(for="importancia") Importancia
+                select.form-control(name="importancia" required)
+                  option(value="leve") Leve
+                  option(value="normal") Normal
+                  option(value="alta") Alta
+              .mb-3
+                label(for="fecha_desde") Fecha Desde
+                input.form-control(type="date" name="fecha_desde" required)
+              .mb-3
+                label(for="fecha_hasta") Fecha Hasta
+                input.form-control(type="date" name="fecha_hasta")
+          //- Pestaña de Antecedentes Patológicos
+          .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
+            h4 Registrar Antecedentes Patológicos
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/antecedentes`)
+              .mb-3
+                label(for="antecedenteTexto") Descripción del Antecedente
+                textarea.form-control(name="antecedenteTexto" id="antecedenteTexto" rows="4" required)
+              .mb-3
+                label(for="fecha_desde_antecedente") Fecha Desde
+                input.form-control(type="date" name="fecha_desde_antecedente" required)
+              .mb-3
+                label(for="fecha_hasta_antecedente") Fecha Hasta
+                input.form-control(type="date" name="fecha_hasta_antecedente")
+          //- Pestaña de habitos
+          .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
+          
+            h4 Registrar habitos
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/habitos`)
+              .mb-3
+                label(for="habitosTexto") Descripción de los Hábitos
+                textarea.form-control(name="habitosTexto" id="habitosTexto" rows="4" required)
+              .mb-3
+                label(for="fecha_desde_habitos") Fecha Desde
+                input.form-control(type="date" name="fecha_desde_habitos" required)
+              .mb-3
+                label(for="fecha_hasta_habitos") Fecha Hasta
+                input.form-control(type="date" name="fecha_hasta_habitos")  
+          //- Pestaña de habitos      
+          .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab") 
+            form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/medicamentos`) 
+              .mb-3 
+                label(for="medicamentos") medicamentos 
+                textarea.form-control(name="medicamentos" id="medicamentos" rows="3")           
+                            
+
+          .row.mt-4 
+            .col-md-12.text-center 
+              button.btn.btn-primary(type="submit") Cerrar consulta
+          

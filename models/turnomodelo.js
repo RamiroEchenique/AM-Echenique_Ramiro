@@ -1,4 +1,5 @@
 const crearConexion = require('../config/configdb');
+const pool = require('../config/configdb');
 
 class TurnoModelo {
     constructor(id, id_agenda, id_paciente,fecha,motivo, hora_inicio, hora_fin, id_estado) {
@@ -14,8 +15,8 @@ class TurnoModelo {
 
     static async obtenerTurnos() {
         try {
-            const conexion = await crearConexion();
-            const [tunos] = await conexion.execute('SELECT * FROM turnos');
+            //const conexion = await crearConexion();
+            const [tunos] = await pool.execute('SELECT * FROM turnos');
             return tunos;
         } catch (error) {
             console.error('Error al obtener turnos:', error);}
@@ -25,8 +26,8 @@ class TurnoModelo {
             //console.log("Modelo obtenerTurnosPorFecha-fecha:",fecha);
             //console.log("Modelo obtenerTurnosPorFecha-id_agenda:",id_agenda);
             try {
-                const conexion = await crearConexion();
-                const turnos = await conexion.query(`
+                //const conexion = await crearConexion();
+                const turnos = await pool.query(`
                             SELECT * 
                             FROM turnos t
                             JOIN paciente pa ON t.id_paciente=pa.id

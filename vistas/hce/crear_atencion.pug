@@ -13,10 +13,10 @@ block js
         const template = event.target.value;
         switch (template) {
           case 'template1':
-            evolucionTexto.value = "Fecha y hora: #{paciente[0].fecha}  #{paciente[0].hora_inicio} \n\nMotivo de la consulta: #{paciente[0].motivo}  \n\nTratamiento recomendado: \n\nObservaciones: ";
+            evolucionTexto.value = "Fecha y hora: #{paciente[0].fecha}  #{paciente[0].hora_inicio} \nMotivo de la consulta: #{paciente[0].motivo}  \nTratamiento recomendado: \nObservaciones: ";
             break;
           case 'template2':
-            evolucionTexto.value = "Fecha: #{paciente[0].fecha}  \n\nHora: #{paciente[0].hora_inicio}  \n\nMotivo: #{paciente[0].motivo}  \n\nTratamiento: \n\nComentarios: ";
+            evolucionTexto.value = "Fecha: #{paciente[0].fecha}  \nHora: #{paciente[0].hora_inicio}  \nMotivo: #{paciente[0].motivo}  \nTratamiento: \nComentarios: ";
             break;
           default:
             evolucionTexto.value = '';
@@ -32,9 +32,10 @@ block contenido
         h1.text-center.mt-0.mb-5 Sistema de Atenciones Médicas  
       .col-md-10.offset-md-1
         // Resto del contenedor principal
+        
         .row
           // Columna de Detalles del Turno, en su propio recuadro
-          .col-md-4
+          .col-md-4 
             .card.border-primary.mb-3 
               .card-body
                 h4 Detalles del Turno
@@ -49,9 +50,9 @@ block contenido
                     strong Motivo: 
                     | #{paciente[0].motivo}
                   li.list-group-item
-                    strong
-                  li.list-group-item
-                    strong       
+                    strong Estado: 
+                    span(class=`badge ${paciente[0].estadonombre === 'Pendiente' ? 'bg-warning' : paciente[0].estadonombre === 'Atendido' ? 'bg-success' : 'bg-danger'}`) #{paciente[0].estadonombre} 
+                      
           
           // Columna de Datos Personales
           .col-md-4
@@ -69,7 +70,7 @@ block contenido
                     strong Género: 
                     | #{paciente[0].genero}
                   li.list-group-item
-                    strong Documento de Identidad: 
+                    strong DNI: 
                     | #{paciente[0].dni}
           
           // Columna de Contacto
@@ -120,6 +121,9 @@ block contenido
               .mb-3
                 label(for="motivo") Detalle de la evolución
                 textarea.form-control(name="evoluciontexto" id="evoluciontexto" rows="8")
+              .row.mt-4 
+                .col-md-12.text-center 
+                  button.btn.btn-primary(type="submit") Guardar Evolución
 
           .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab") 
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/diagnostico`) 
@@ -183,7 +187,7 @@ block contenido
                 label(for="medicamentos") medicamentos 
                 textarea.form-control(name="medicamentos" id="medicamentos" rows="3")           
                             
-
+        //cerrar consulta
           .row.mt-4 
             .col-md-12.text-center 
               button.btn.btn-primary(type="submit") Cerrar consulta

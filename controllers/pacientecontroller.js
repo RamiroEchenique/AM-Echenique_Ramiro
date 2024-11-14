@@ -66,14 +66,14 @@ class PacienteController {
 
     static async mostrarAtencion(req, res) {
         try {
-            //console.log("----inicio paciente controller - mostrar atencion----");
+            console.log("----inicio paciente controller - mostrar atencion----");
             //Paciente
             const turnoId = req.params.turnoId;
             console.log("turnoId:", turnoId);
             const paciente = await PacienteModelo.obtenerPacientesPorTurnoId(turnoId);
             paciente[0].forEach(paciente => { paciente.fecha = new Date(paciente.fecha).toLocaleDateString('es-AR'); });
             paciente[0].forEach(paciente => { paciente.fecha_nacimiento = new Date(paciente.fecha_nacimiento).toLocaleDateString('es-AR'); });
-            //console.log("paciente:", paciente[0]);
+            console.log("paciente de mostrar atencion :", paciente[0]);
             res.render('hce/crear_atencion', {paciente: paciente[0]}); 
             console.log("----fin paciente controller - mostrar atencion----");
         } catch (error) {  

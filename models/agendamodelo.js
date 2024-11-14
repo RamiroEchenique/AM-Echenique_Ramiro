@@ -1,4 +1,5 @@
 const crearConexion = require('../config/configdb');
+const pool = require('../config/configdb');
 
 class AgendaModelo {
     constructor(id,id_medico_especialidad,estado) {
@@ -10,8 +11,8 @@ class AgendaModelo {
 
     static async obtenerAgenda() {
         try {
-            const conexion = await crearConexion();
-            const [agenda] = await conexion.query(`
+            //const conexion = await crearConexion();
+            const [agenda] = await pool.query(`
                 CALL obtenerAgendaConEspecialidad()
             `);
             return agenda;
@@ -25,8 +26,8 @@ class AgendaModelo {
         //medicoId = 1;
         //console.log("medicoId despues:",medicoId);
          try { 
-            const conexion = await crearConexion(); 
-            const [agendas] = await conexion.query(` 
+            //const conexion = await crearConexion(); 
+            const [agendas] = await pool.query(` 
                 SELECT a.id, a.id_medico_especialidad, e.nombre_especialidad, a.estado 
                 FROM agenda a 
                 JOIN medico_especialidad me ON a.id_medico_especialidad = me.matricula 

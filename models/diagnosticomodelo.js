@@ -1,10 +1,11 @@
 const crearConexion = require('../config/configdb');
+const pool = require('../config/configdb');
 
 class DiagnosticoModelo{
     static async obtenerdiagnosticos(pacienteId) {
         try {
-            const conexion = await crearConexion();
-            const diagnosticos = await conexion.query(`
+            //const conexion = await crearConexion();
+            const diagnosticos = await pool.query(`
                     SELECT a.fecha, a.hora, t.motivo, d.descripcion,d.tipo, pa.dni,pe.nombre,pe.apellido
                     FROM diagnostico d
                     JOIN atenciones a ON a.id = d.id_atenciones

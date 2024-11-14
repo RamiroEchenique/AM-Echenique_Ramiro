@@ -1,4 +1,6 @@
-const crearConexion = require('../config/configdb');
+//const crearConexion = require('../config/configdb');
+
+const pool = require('../config/configdb');
 
 class MedicoModelo {
     constructor(id,dni,usuario,constraseña,estado) {
@@ -12,8 +14,8 @@ class MedicoModelo {
 
     static async obtenerMedicoPorNombre() {
         try {
-            const conexion = await crearConexion();
-            const [medico] = await conexion.query(`
+            //const conexion = await crearConexion();
+            const [medico] = await pool.query(`
                             SELECT m.id, p.nombre, p.apellido
                             FROM medico m
 	                            JOIN persona p ON m.dni = p.dni;
@@ -26,8 +28,8 @@ class MedicoModelo {
 
     static async obtenerNombreMedicoPorId(medicoId) {
         try {
-            const conexion = await crearConexion();
-            const [medico] = await conexion.query(`
+            //const conexion = await crearConexion();
+            const [medico] = await pool.query(`
                             SELECT * 
                             FROM medico m
 	                            JOIN persona p ON m.dni=p.dni

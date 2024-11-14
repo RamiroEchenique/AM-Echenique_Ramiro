@@ -1,10 +1,11 @@
 const crearConexion = require('../config/configdb');
+const pool = require('../config/configdb');
 
 class AlergiaModelo{
     static async obtenerAlergias(pacienteId) {
         try {
-            const conexion = await crearConexion();
-            const alergias = await conexion.query(`
+            //const conexion = await crearConexion();
+            const alergias = await pool.query(`
                     SELECT a.fecha, a.hora, t.motivo, aln.nombre_alergia,ali.importancia,al.fecha_desde,al.fecha_hasta, pa.dni,pe.nombre,pe.apellido
                     FROM alergias al
                     JOIN atenciones a ON a.id = al.id_atenciones

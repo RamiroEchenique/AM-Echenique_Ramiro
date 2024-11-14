@@ -1,11 +1,12 @@
 const crearConexion = require('../config/configdb');
+const pool = require('../config/configdb');
 const AtencionModelo = require('./atencionmodelo');
 
 class EvolucionModelo1 {
     static async obtenerEvoluciones(pacienteId) {
         try {
-            const conexion = await crearConexion();
-            const evoluciones = await conexion.query(`
+            //const conexion = await crearConexion();
+            const evoluciones = await pool.query(`
                     SELECT a.fecha, a.hora, t.motivo, e.descripcion, pa.dni,pe.nombre,pe.apellido
                     FROM evoluciones e
                     JOIN atenciones a ON a.id = e.id_atenciones
@@ -25,10 +26,10 @@ class EvolucionModelo1 {
 
     static async crear (atencionId, evoluciontexto) {
         try {
-            const conexion = await crearConexion();
+            //const conexion = await crearConexion();
             //const atenciones=await AtencionModelo.obtenerPorIdTurno(turnoId);
             //console.log("EvolucionModelo1 - atenciones:", atenciones);
-            const evolucion = await conexion.query(
+            const evolucion = await pool.query(
                 'INSERT INTO evoluciones (id_atenciones, descripcion) VALUES (?, ?)', 
                 [atencionId, evoluciontexto]);
             return evolucion[0].affectedRows == 1; // Retorna true si se creó la evolucion;

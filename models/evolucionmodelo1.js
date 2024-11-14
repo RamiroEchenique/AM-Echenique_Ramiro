@@ -1,4 +1,5 @@
 const crearConexion = require('../config/configdb');
+const AtencionModelo = require('./atencionmodelo');
 
 class EvolucionModelo1 {
     static async obtenerEvoluciones(pacienteId) {
@@ -22,7 +23,20 @@ class EvolucionModelo1 {
         }
     }
 
-    static async crear (turnoId, evoluciontexto) {
+    static async crear (atencionId, evoluciontexto) {
+        try {
+            const conexion = await crearConexion();
+            //const atenciones=await AtencionModelo.obtenerPorIdTurno(turnoId);
+            //console.log("EvolucionModelo1 - atenciones:", atenciones);
+            const evolucion = await conexion.query(
+                'INSERT INTO evoluciones (id_atenciones, descripcion) VALUES (?, ?)', 
+                [atencionId, evoluciontexto]);
+            return evolucion[0].affectedRows == 1; // Retorna true si se creó la evolucion;
+            //return true;
+        } catch (error) {
+            console.error('Error al crear evolucion:', error);
+            throw error; // Asegúrate de que el error se propaga
+        }
         
     }
 }

@@ -6,6 +6,7 @@ const AntecedenteModelo = require('../models/antecedentemodelo');
 const HabitoModelo = require('../models/habitomodelo');
 const MedicamentoModelo = require('../models/medicamentomodelo');
 const AtencionModelo = require('../models/atencionmodelo');
+const e = require('express');
 
 class PacienteController {
     static async obtenerPacienteyHCE(req, res) {
@@ -65,14 +66,14 @@ class PacienteController {
 
     static async mostrarAtencion(req, res) {
         try {
-            console.log("----inicio paciente controller - mostrar atencion----");
+            //console.log("----inicio paciente controller - mostrar atencion----");
             //Paciente
             const turnoId = req.params.turnoId;
             console.log("turnoId:", turnoId);
             const paciente = await PacienteModelo.obtenerPacientesPorTurnoId(turnoId);
             paciente[0].forEach(paciente => { paciente.fecha = new Date(paciente.fecha).toLocaleDateString('es-AR'); });
             paciente[0].forEach(paciente => { paciente.fecha_nacimiento = new Date(paciente.fecha_nacimiento).toLocaleDateString('es-AR'); });
-            console.log("paciente:", paciente[0]);
+            //console.log("paciente:", paciente[0]);
             res.render('hce/crear_atencion', {paciente: paciente[0]}); 
             console.log("----fin paciente controller - mostrar atencion----");
         } catch (error) {  
@@ -82,13 +83,40 @@ class PacienteController {
     }
 
     static async guardarAtencion (req, res) {
-        const turnoId = req.params.turnoId;     console.log("Guardar atencion - turnoId:", turnoId);
-        const evoluciontexto = req.body.evoluciontexto; console.log("Guardar atencion - evoluciontexto:", evoluciontexto);
-        if(AtencionModelo.crear(turnoId)){
-            console.log("Atencion creada con exito");
-        }
-
-
+        try {
+            console.log("----inicio paciente controller - guardar atencion----");
+            const turnoId = req.params.turnoId;     console.log("Guardar atencion - turnoId:", turnoId);
+            const evoluciontexto = req.body.evoluciontexto; console.log("Guardar atencion - evoluciontexto:", evoluciontexto);
+            /*const atencion = await AtencionModelo.obtenerPorIdTurno(turnoId);
+            console.log("Guardar atencion - atencion:", atencion[0]);*/
+            // Crear la atención y obtener el ID generado 
+            const atencionId = await AtencionModelo.crear(turnoId);     console.log("Guardar atención - atencionId:", atencionId);
+            
+            if(atencionId){ // Si se creo la atencion hacer...
+                // Crear la evolucion usando el id de la atención recien creada
+                const evolucion = await EvolucionModelo.crear(atencionId, evoluciontexto);     console.log("Guardar evolucion - evolucion:", evolucion);
+                if(evolucion){
+                    console.log("Evolucion creada con exito");
+                    res.redirect(`/pacientes/atender/${turnoId}`);
+                }else{
+                    console.log("No se pudo crear la evolucion");
+                }
+            }else{
+                console.log("No se pudo crear la atencion");
+                
+            }
+            /*if(AtencionModelo.crear(turnoId)){
+                console.log("Atencion creada con exito");
+                if(EvolucionModelo.crear(turnoId, evoluciontexto)){
+                    console.log("Evolucion creada con exito");
+                }
+                
+                res.redirect(`/pacientes/atender/${turnoId}`);
+            }*/
+            console.log("----fin paciente controller - guardar atencion----");
+        }catch (error) {
+            console.error('Error al guardar atencion:', error);
+        }   
     }
 }
 

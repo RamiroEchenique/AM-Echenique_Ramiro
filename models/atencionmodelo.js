@@ -1,6 +1,16 @@
 const crearConexion = require('../config/configdb');
 
 class AtencionModelo {
+    static async obtenerPorIdTurno(turnoId) {
+        try {
+            console.log("AtencionModelo.obtenerPorIdTurno - turnoId:", turnoId);
+            const conexion = await crearConexion();
+            const atenciones = await conexion.query('SELECT * FROM atenciones WHERE id_turnos = ?', [turnoId]);
+            return atenciones;
+        }catch (error) {
+            console.error('Error al obtener atenciones por id turno:', error);
+        }    
+    }
     static async crear(turnoId) {
         try {
             const conexion = await crearConexion();
@@ -12,8 +22,10 @@ class AtencionModelo {
             const atencion = await conexion.query(
                 'INSERT INTO `atenciones`(`fecha`, `hora`, `id_turnos`) VALUES (?, ?, ?)',
                 [fechaActual, horaActual, turnoId]);
-            
-            return atencion.affectedRows == 1; // Retorna true si se creó la atención
+            console.log("AtencionModelo.crear - atencion:", atencion);
+            console.log("AtencionModelo.crear - atencion.insertId:", atencion[0].insertId);
+            //return atencion.affectedRows == 1; // Retorna true si se creó la atención
+            return atencion[0].insertId; // Retorna el ID de la atención recién creada
         } catch (error) {
             console.error('Error al crear atencion:', error);
         }

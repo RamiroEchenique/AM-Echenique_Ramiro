@@ -67,7 +67,7 @@ function actualizarTablaTurnos(turnos) {
       });
   } else {
       const row = document.createElement('tr');
-      row.innerHTML = `<td colspan="6">No hay turnos disponibles para la fecha seleccionada</td>`;
+      row.innerHTML = `<td colspan="9">No hay turnos disponibles para la fecha seleccionada</td>`;
       tbody.appendChild(row);
   }
 }

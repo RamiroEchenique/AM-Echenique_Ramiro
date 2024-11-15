@@ -46,10 +46,16 @@ function actualizarTurnos() {
 
 function actualizarTablaTurnos(turnos) {
   const tbody = document.querySelector('table.table tbody');
-  tbody.innerHTML = '';  // Limpiar la tabla antes de llenarla
+  tbody.innerHTML = '';  // Limpia la tabla antes de llenarla
 
   if (turnos.length) {
       turnos.forEach(turno => {
+            // Determinar la clase del estado según el valor de `estadonombre`
+          const estadoClase = turno.estadonombre === 'Pendiente' 
+          ? 'bg-warning' 
+          : turno.estadonombre === 'Atendido' 
+          ? 'bg-success' 
+          : 'bg-danger';
           const row = document.createElement('tr');
           row.innerHTML = `
               <td>${turno.fecha}</td>
@@ -57,8 +63,7 @@ function actualizarTablaTurnos(turnos) {
               <td>${turno.motivo}</td>
               <td>${turno.hora_inicio}</td>
               <td>${turno.hora_fin}</td>
-              <td>${turno.estado}</td>
-              <td>${turno.idturno}</td>
+              <td><span class="badge ${estadoClase}">${turno.estadonombre}</span></td>
               <td><button class="btn btn-info" onclick="verHCE(${turno.id_paciente})">Ver</button></td>
               <td><button class="btn btn-success" onclick="Atender(${turno.idturno})">Atender</button></td>
 

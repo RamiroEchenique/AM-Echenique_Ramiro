@@ -28,21 +28,29 @@ class PacienteController {
             console.log("diagnosticos:", diagnosticos[0]);
             //HCE:Alergias
             const alergias = await AlergiaModelo.obtenerAlergias(pacienteId);
-            alergias[0].forEach(alergia => { alergia.fecha = new Date(alergia.fecha).toLocaleDateString('es-AR'); });
-            alergias[0].forEach(alergia => { alergia.fecha_desde = new Date(alergia.fecha_desde).toLocaleDateString('es-AR'); });//ver para nulos
-            alergias[0].forEach(alergia => { alergia.fecha_hasta = new Date(alergia.fecha_hasta).toLocaleDateString('es-AR'); }); // ver para nulos
+            alergias[0].forEach(alergia => {
+                alergia.fecha = alergia.fecha ? new Date(alergia.fecha).toLocaleDateString('es-AR') : "-";
+                alergia.fecha_desde = alergia.fecha_desde ? new Date(alergia.fecha_desde).toLocaleDateString('es-AR') : "-";
+                alergia.fecha_hasta = alergia.fecha_hasta ? new Date(alergia.fecha_hasta).toLocaleDateString('es-AR') : "-";
+              });
             console.log("alergias:", alergias[0]);
             //HCE:Antecedentes
             const antecedentes = await AntecedenteModelo.obtenerAntecedentes(pacienteId);
-            antecedentes[0].forEach(antecedente => { antecedente.fecha = new Date(antecedente.fecha).toLocaleDateString('es-AR'); });
-            antecedentes[0].forEach(antecedente => { antecedente.fecha_desde = new Date(antecedente.fecha_desde).toLocaleDateString('es-AR'); });//ver para nulos
-            antecedentes[0].forEach(antecedente => { antecedente.fecha_hasta = new Date(antecedente.fecha_hasta).toLocaleDateString('es-AR'); }); // ver para nulos
+            antecedentes[0].forEach(antecedente => {
+                antecedente.fecha = antecedente.fecha ? new Date(antecedente.fecha).toLocaleDateString('es-AR') : "-";
+                antecedente.fecha_desde = antecedente.fecha_desde ? new Date(antecedente.fecha_desde).toLocaleDateString('es-AR') : "-";
+                antecedente.fecha_hasta = antecedente.fecha_hasta ? new Date(antecedente.fecha_hasta).toLocaleDateString('es-AR') : "-";
+              });
+              
             console.log("antecedentes:", antecedentes[0]);
             //HCE:Habitos
             const habitos = await HabitoModelo.obtenerhabitos(pacienteId);
-            habitos[0].forEach(habito => { habito.fecha = new Date(habito.fecha).toLocaleDateString('es-AR'); });
-            habitos[0].forEach(habito => { habito.fecha_desde = new Date(habito.fecha_desde).toLocaleDateString('es-AR'); });//ver para nulos
-            habitos[0].forEach(habito => { habito.fecha_hasta = new Date(habito.fecha_hasta).toLocaleDateString('es-AR'); }); // ver para nulos
+            habitos[0].forEach(habito => {
+                habito.fecha = habito.fecha ? new Date(habito.fecha).toLocaleDateString('es-AR') : "-";
+                habito.fecha_desde = habito.fecha_desde ? new Date(habito.fecha_desde).toLocaleDateString('es-AR') : "-";
+                habito.fecha_hasta = habito.fecha_hasta ? new Date(habito.fecha_hasta).toLocaleDateString('es-AR') : "-";
+              });
+              
             console.log("habitos:", habitos[0]);
             //HCE:Medicamentos
             const medicamentos = await MedicamentoModelo.obtenermedicamentos(pacienteId);

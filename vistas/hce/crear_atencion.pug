@@ -97,17 +97,18 @@ block contenido
         h4.text-center.mt-4 ATENCIÓN MÉDICA
         ul.nav.nav-tabs#hceTabs(role='tablist')
           li.nav-item
-            a.nav-link.active#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
+            a.nav-link.active.fw-bold#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
           li.nav-item
-            a.nav-link#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
+            a.nav-link.fw-bold#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
           li.nav-item
-            a.nav-link#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
+            a.nav-link.fw-bold#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
           li.nav-item
-            a.nav-link#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos
+            a.nav-link.fw-bold#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos
           li.nav-item
-            a.nav-link#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
+            a.nav-link.fw-bold#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
           li.nav-item
-            a.nav-link#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
+            a.nav-link.fw-bold#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
+
 
         .tab-content#hceTabsContent
           .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
@@ -136,7 +137,6 @@ block contenido
 
           //- Pestaña de Alergias
           .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
-            h4.mt-2 Registrar Nueva Alergia
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/alergias`)
               .mb-3
                 label(for="nombre") Nombre de la alergia
@@ -155,7 +155,7 @@ block contenido
                 input.form-control(type="date" name="fecha_hasta")
           //- Pestaña de Antecedentes Patológicos
           .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
-            h4 Registrar Antecedentes Patológicos
+      
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/antecedentes`)
               .mb-3
                 label(for="antecedenteTexto") Descripción del Antecedente
@@ -169,7 +169,6 @@ block contenido
           //- Pestaña de habitos
           .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
           
-            h4 Registrar habitos
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/habitos`)
               .mb-3
                 label(for="habitosTexto") Descripción de los Hábitos
@@ -183,8 +182,8 @@ block contenido
           //- Pestaña de habitos      
           .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab") 
             form(method="post" action=`/pacientes/atender/${paciente[0].idturno}/medicamentos`) 
-              .mb-3 
-                label(for="medicamentos") medicamentos 
+              .mb-3.mt5
+                label(for="medicamentos") Medicamentos (en contrucción)
                 textarea.form-control(name="medicamentos" id="medicamentos" rows="3")           
                             
         //cerrar consulta

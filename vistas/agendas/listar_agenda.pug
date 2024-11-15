@@ -36,12 +36,11 @@ block contenido
               th Motivo
               th Hora Inicio
               th Hora Fin
-              th Estado
-              th id turno
+              th Estado del turno
               th HCE
               th Atención
               
-          tbody
+          tbody.table-group-divider
             if turnos.length
               each turno in turnos
                 tr
@@ -50,8 +49,7 @@ block contenido
                   td= turno.motivo
                   td= turno.hora_inicio
                   td= turno.hora_fin
-                  td= turno.estado
-                  td= turno.idturno
+                  td= turno.estadonombre
                   td button.btn.btn-info(onclick=`verHCE(${turno.id_paciente})`) Ver
                   td button.btn.btn-success(onclick=`Atender(${turno.idturno})`) Atender
                   

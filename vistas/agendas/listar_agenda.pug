@@ -31,14 +31,15 @@ block contenido
         table.table.table-striped 
           thead.table.thead-dark
             tr
-              th Fecha
+              th.text-center Fecha
               th Paciente 
               th Motivo
-              th Hora Inicio
-              th Hora Fin
-              th Estado del turno
-              th HCE
-              th Atención
+              th.text-center Hora Inicio
+              th.text-center Hora Fin
+              th.text-center Estado del turno
+              th.text-center idpaciente
+              th.text-center HCE
+              th.text-center Atención
               
           tbody.table-group-divider
             if turnos.length
@@ -50,7 +51,8 @@ block contenido
                   td= turno.hora_inicio
                   td= turno.hora_fin
                   td= turno.estadonombre
-                  td button.btn.btn-info(onclick=`verHCE(${turno.id_paciente})`) Ver
+                  td gg= turno.idpaciente 
+                  td button.btn.btn-info(onclick=`verHCE(${turno.idpaciente})`) Ver
                   td button.btn.btn-success(onclick=`Atender(${turno.idturno})`) Atender
                   
             else

@@ -30,7 +30,7 @@ class TurnoModelo {
                 const turnos = await pool.query(`
                             SELECT * 
                             FROM turnos t
-                            JOIN paciente pa ON t.id_paciente=pa.id
+                            JOIN paciente pa ON t.idpaciente=pa.idpaciente
                             JOIN persona pe ON pa.dni=pe.dni
                             JOIN turnos_estado te ON te.id=t.id_estado 
                             WHERE fecha=?

@@ -58,27 +58,28 @@ function actualizarTablaTurnos(turnos) {
           : 'bg-danger';
           const row = document.createElement('tr');
           row.innerHTML = `
-              <td>${turno.fecha}</td>
+              <td class="text-center">${turno.fecha}</td>
               <td>${turno.apellido} ${turno.nombre}</td>
               <td>${turno.motivo}</td>
-              <td>${turno.hora_inicio}</td>
-              <td>${turno.hora_fin}</td>
-              <td><span class="badge ${estadoClase}">${turno.estadonombre}</span></td>
-              <td><button class="btn btn-info" onclick="verHCE(${turno.id_paciente})">Ver</button></td>
-              <td><button class="btn btn-success" onclick="Atender(${turno.idturno})">Atender</button></td>
+              <td class="text-center">${turno.hora_inicio}</td>
+              <td class="text-center">${turno.hora_fin}</td>
+              <td class="text-center"><span class="badge ${estadoClase}">${turno.estadonombre}</span></td>
+              <td class="text-center">${turno.idpaciente}</td>
+              <td class="text-center"><button class="btn btn-info" onclick="verHCE(${turno.idpaciente})">Ver</button></td>
+              <td class="text-center"><button class="btn btn-success" onclick="Atender(${turno.idturno})">Atender</button></td>
 
           `;
           tbody.appendChild(row);
       });
   } else {
       const row = document.createElement('tr');
-      row.innerHTML = `<td colspan="9">No hay turnos disponibles para la fecha seleccionada</td>`;
+      row.innerHTML = `<td colspan="9" class="text-center">No hay turnos disponibles para la fecha seleccionada</td>`;
       tbody.appendChild(row);
   }
 }
 
-function verHCE(id_paciente) {
-  window.location.href = `/pacientes/verhce/${id_paciente}`;
+function verHCE(idpaciente) {
+  window.location.href = `/pacientes/verhce/${idpaciente}`;
 }
 
 function Atender(turnoId) {

@@ -1,6 +1,10 @@
 body {
-    background-color: #fd781f9c; /* Color de fondo azul claro */
+    background-color: #fd781f9c; 
   }
+
+  .nav-tabs .nav-link {
+    font-size: 16px; /* Asegúrate de que este tamaño sea el mismo para todas las pestañas */
+} 
  
  /* Cambiar color de fondo y texto en la pestaña activa */
 .nav-tabs .nav-link.active {
@@ -8,9 +12,27 @@ body {
   color: #fff;
 }
 
+/* estilo para la tabla hce*/
+.tarjeta-hce {
+  display: flex; 
+  /*flex-direction: column;*/ 
+  /*height: 100%;*/
+  background-color: #fd781f9c;
+  border: 2px solid #11e029;
+}
+
+.tarjeta-hce.card-body {
+  flex: 1;
+  padding: 20px;
+}
+
+
+/*fin estilo para la tabla hce*/
+
 /* Estilo para el borde de la tarjeta */
-.card.border-primary {
+.turno {
   border-width: 3px; /*  ajustar el valor para hacer el borde más grueso */
+  /*background-color: #fd781f9c;*/
 }
 
 /* Estilo para el cuerpo de la tarjeta */

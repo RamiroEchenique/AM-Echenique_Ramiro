@@ -17,7 +17,7 @@ block contenido
         .row.d-flex
           // Columna de Detalles del Turno, en su propio recuadro
           .col-md-6.d-flex.align-items-stretch
-            .card.border-primary.mb-3.flex-grow-1
+            .card.border-primary.mb-3.flex-grow-1.turno
               .card-body
                 h4 Detalles del Turno
                 ul.list-group.list-group-flush
@@ -74,115 +74,101 @@ block contenido
 
     .row.mt-0
       .col-md-12
-        h4.text-center.mt-4 Historia Clínica Electrónica (HCE)
-        ul.nav.nav-tabs#hceTabs(role='tablist')
-          li.nav-item
-            a.nav-link.active.fw-bold#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
-          li.nav-item
-            a.nav-link.fw-bold#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
-          li.nav-item
-            a.nav-link.fw-bold#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
-          li.nav-item
-            a.nav-link.fw-bold#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos
-          li.nav-item
-            a.nav-link.fw-bold#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
-          li.nav-item
-            a.nav-link.fw-bold#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
-        
-        //h3.text-center.mt-4 Historia Clínica Electrónica (HCE)
-        include tabla_hce.pug  
-        h3.text-center.mt-4 Atención Medica
-        .tab-content#hceTabsContent
-          //- Pestaña de las Evoluciones
-          .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}`)
-              .mb-3
-                label(for="templateDropdown") Seleccionar Template
-                select.form-control#templateDropdown
-                  option(value="") -- Seleccione un Template --
-                  option(value="template1") Template 1
-                  option(value="template2") Template 2
-              .mb-3
-                label(for="motivo") Detalle de la evolución
-                //  div para Quill 
-                #editor
-                textarea.form-control(name="evoluciontexto" id="evoluciontexto" rows="4" hidden)
-              .row.mt-4 
-                .col-md-12.text-center 
-                  button.btn.btn-primary(type="submit") Guardar Evolución
+        include tabla_hce.pug
+        .card.border-primary.mt-2.tarjeta-hce
+          .card-body  
+            h4.text-center Atención Medica
+            .tab-content#hceTabsContent
+              //- Pestaña de las Evoluciones
+              .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}`)
+                  .mb-3
+                    label(for="templateDropdown") Seleccionar Template
+                    select.form-control#templateDropdown
+                      option(value="") -- Seleccione un Template --
+                      option(value="template1") Template 1
+                      option(value="template2") Template 2
+                  .mb-3
+                    label(for="motivo") Detalle de la evolución
+                    //  div para Quill 
+                    #editor
+                    textarea.form-control(name="evoluciontexto" id="evoluciontexto" rows="4" hidden)
+                  .row.mt-4 
+                    .col-md-12.text-center 
+                      button.btn.btn-primary(type="submit") Guardar Evolución
 
-                  //h3.text-center.mt-4 Historia Clínica Electrónica 1(HCE)
-                  //include tabla_hce.pug       
+                      //h3.text-center.mt-4 Historia Clínica Electrónica 1(HCE)
+                      //include tabla_hce.pug       
 
-          //- Pestaña de los Diagnosticos
-          .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab") 
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}/diagnostico`) 
-              .mb-3 
-                label(for="diagnostico1") Diagnóstico 1 
-                textarea.form-control(name="diagnostico1" id="diagnostico1" rows="3") 
-              .mb-3 
-                label(for="diagnostico2") Diagnóstico 2 
-                textarea.form-control(name="diagnostico2" id="diagnostico2" rows="3")
+              //- Pestaña de los Diagnosticos
+              .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab") 
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}/diagnostico`) 
+                  .mb-3 
+                    label(for="diagnostico1") Diagnóstico 1 
+                    textarea.form-control(name="diagnostico1" id="diagnostico1" rows="3") 
+                  .mb-3 
+                    label(for="diagnostico2") Diagnóstico 2 
+                    textarea.form-control(name="diagnostico2" id="diagnostico2" rows="3")
 
-                //h3.text-center.mt-4 Historia Clínica Electrónica 2(HCE)
-                //include tabla_hce.pug          
+                    //h3.text-center.mt-4 Historia Clínica Electrónica 2(HCE)
+                    //include tabla_hce.pug          
 
-          //- Pestaña de Alergias
-          .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}/alergias`)
-              .mb-3
-                label(for="nombre") Nombre de la alergia
-                input.form-control(type="text" name="nombre" required)
-              .mb-3
-                label(for="importancia") Importancia
-                select.form-control(name="importancia" required)
-                  option(value="leve") Leve
-                  option(value="normal") Normal
-                  option(value="alta") Alta
-              .mb-3
-                label(for="fecha_desde") Fecha Desde
-                input.form-control(type="date" name="fecha_desde" required)
-              .mb-3
-                label(for="fecha_hasta") Fecha Hasta
-                input.form-control(type="date" name="fecha_hasta")
+              //- Pestaña de Alergias
+              .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}/alergias`)
+                  .mb-3
+                    label(for="nombre") Nombre de la alergia
+                    input.form-control(type="text" name="nombre" required)
+                  .mb-3
+                    label(for="importancia") Importancia
+                    select.form-control(name="importancia" required)
+                      option(value="leve") Leve
+                      option(value="normal") Normal
+                      option(value="alta") Alta
+                  .mb-3
+                    label(for="fecha_desde") Fecha Desde
+                    input.form-control(type="date" name="fecha_desde" required)
+                  .mb-3
+                    label(for="fecha_hasta") Fecha Hasta
+                    input.form-control(type="date" name="fecha_hasta")
+              
+
+              //- Pestaña de Antecedentes Patológicos
+              .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
           
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}/antecedentes`)
+                  .mb-3
+                    label(for="antecedenteTexto") Descripción del Antecedente
+                    textarea.form-control(name="antecedenteTexto" id="antecedenteTexto" rows="4" required)
+                  .mb-3
+                    label(for="fecha_desde_antecedente") Fecha Desde
+                    input.form-control(type="date" name="fecha_desde_antecedente" required)
+                  .mb-3
+                    label(for="fecha_hasta_antecedente") Fecha Hasta
+                    input.form-control(type="date" name="fecha_hasta_antecedente")
+            
 
-          //- Pestaña de Antecedentes Patológicos
-          .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
-      
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}/antecedentes`)
-              .mb-3
-                label(for="antecedenteTexto") Descripción del Antecedente
-                textarea.form-control(name="antecedenteTexto" id="antecedenteTexto" rows="4" required)
-              .mb-3
-                label(for="fecha_desde_antecedente") Fecha Desde
-                input.form-control(type="date" name="fecha_desde_antecedente" required)
-              .mb-3
-                label(for="fecha_hasta_antecedente") Fecha Hasta
-                input.form-control(type="date" name="fecha_hasta_antecedente")
-         
+              //- Pestaña de habitos
+              .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
+              
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}/habitos`)
+                  .mb-3
+                    label(for="habitosTexto") Descripción de los Hábitos
+                    textarea.form-control(name="habitosTexto" id="habitosTexto" rows="4" required)
+                  .mb-3
+                    label(for="fecha_desde_habitos") Fecha Desde
+                    input.form-control(type="date" name="fecha_desde_habitos" required)
+                  .mb-3
+                    label(for="fecha_hasta_habitos") Fecha Hasta
+                    input.form-control(type="date" name="fecha_hasta_habitos")
+              
 
-          //- Pestaña de habitos
-          .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
-          
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}/habitos`)
-              .mb-3
-                label(for="habitosTexto") Descripción de los Hábitos
-                textarea.form-control(name="habitosTexto" id="habitosTexto" rows="4" required)
-              .mb-3
-                label(for="fecha_desde_habitos") Fecha Desde
-                input.form-control(type="date" name="fecha_desde_habitos" required)
-              .mb-3
-                label(for="fecha_hasta_habitos") Fecha Hasta
-                input.form-control(type="date" name="fecha_hasta_habitos")
-          
-
-          //- Pestaña de habitos      
-          .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab") 
-            form(method="post" action=`/pacientes/atender/${paciente.idturno}/medicamentos`) 
-              .mb-3.mt5
-                label(for="medicamentos") Medicamentos (en contrucción)
-                textarea.form-control(name="medicamentos" id="medicamentos" rows="3")
+              //- Pestaña de habitos      
+              .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab") 
+                form(method="post" action=`/pacientes/atender/${paciente.idturno}/medicamentos`) 
+                  .mb-3.mt5
+                    label(for="medicamentos") Medicamentos (en contrucción)
+                    textarea.form-control(name="medicamentos" id="medicamentos" rows="3")
 
         //h3.text-center.mt-4 Historia Clínica Electrónica 1(HCE)
         //include tabla_hce.pug                 

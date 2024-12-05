@@ -1,141 +1,129 @@
-.card.border-primary.tarjeta-hce
-  .card-body
-    h4.text-center.mt-0 Historia Clínica Electrónica (HCE)
-    ul.nav.nav-tabs#hceTabs(role='tablist')
-      li.nav-item
-        a.nav-link.active.fw-bold#evoluciones-tab(data-bs-toggle="tab" href="#evoluciones" role="tab" aria-controls="evoluciones" aria-selected="true") Evoluciones
-      li.nav-item
-        a.nav-link.fw-bold#diagnosticos-tab(data-bs-toggle="tab" href="#diagnosticos" role="tab" aria-controls="diagnosticos" aria-selected="false") Diagnósticos
-      li.nav-item
-        a.nav-link.fw-bold#alergias-tab(data-bs-toggle="tab" href="#alergias" role="tab" aria-controls="alergias" aria-selected="false") Alergias
-      li.nav-item
-        a.nav-link.fw-bold#antecedentes-tab(data-bs-toggle="tab" href="#antecedentes" role="tab" aria-controls="antecedentes" aria-selected="false") Antecedentes Patológicos
-      li.nav-item
-        a.nav-link.fw-bold#habitos-tab(data-bs-toggle="tab" href="#habitos" role="tab" aria-controls="habitos" aria-selected="false") Hábitos
-      li.nav-item
-        a.nav-link.fw-bold#medicamentos-tab(data-bs-toggle="tab" href="#medicamentos" role="tab" aria-controls="medicamentos" aria-selected="false") Medicamentos
+//.card.border-primary.tarjeta-hce
+.card-body
+  //h4.text-center.mt-0 Historia Clínica Electrónica (HCE)
+  //include secciones.pug
 
-    .tab-content#hceTabsContent
-      .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
-        .col-md-12
-          //h3.text-center.mt-0 Evoluciones
-          table.table.table-striped 
-            thead.table.thead-dark
+  .tab-content#hceTabsContent
+    .tab-pane.fade.show.active#evoluciones(role="tabpanel" aria-labelledby="evoluciones-tab")
+      .col-md-12
+        //h3.text-center.mt-0 Evoluciones
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              th.text-center Hora
+              th Motivo de la consulta
+              th Evolucion
+              th Atendido por Médico
+          tbody.table-group-divider
+            each evolucion in evoluciones
               tr
-                th.text-center Fecha
-                th.text-center Hora
-                th Motivo de la consulta
-                th Evolucion
-                th Atendido por Médico
-            tbody.table-group-divider
-              each evolucion in evoluciones
-                tr
-                  td.text-center= evolucion.fecha
-                  td.text-center= evolucion.hora
-                  td= evolucion.motivo
-                  td= evolucion.descripcion
-                  td= `${evolucion.apellido} ${evolucion.nombre}` 
-          
-      .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab")
-        .col-md-12
-          table.table.table-striped 
-            thead.table.thead-dark
+                td.text-center= evolucion.fecha
+                td.text-center= evolucion.hora
+                td= evolucion.motivo
+                td!= evolucion.descripcion
+                td= `${evolucion.apellido} ${evolucion.nombre}` 
+        
+    .tab-pane.fade#diagnosticos(role="tabpanel" aria-labelledby="diagnosticos-tab")
+      .col-md-12
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              th.text-center Hora
+              th Motivo de la consulta
+              th Diagnostico
+              th Tipo
+              th Atendido por Médico
+          tbody.table-group-divider
+            each diagnostico in diagnosticos
               tr
-                th.text-center Fecha
-                th.text-center Hora
-                th Motivo de la consulta
-                th Diagnostico
-                th Tipo
-                th Atendido por Médico
-            tbody.table-group-divider
-              each diagnostico in diagnosticos
-                tr
-                  td.text-center= diagnostico.fecha
-                  td.text-center= diagnostico.hora
-                  td= diagnostico.motivo
-                  td= diagnostico.descripcion
-                  td= diagnostico.tipo
-                  td= `${diagnostico.apellido} ${diagnostico.nombre}`     
-      .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
-        .col-md-12
-          table.table.table-striped 
-            thead.table.thead-dark
+                td.text-center= diagnostico.fecha
+                td.text-center= diagnostico.hora
+                td= diagnostico.motivo
+                td= diagnostico.descripcion
+                td= diagnostico.tipo
+                td= `${diagnostico.apellido} ${diagnostico.nombre}`     
+    .tab-pane.fade#alergias(role="tabpanel" aria-labelledby="alergias-tab")
+      .col-md-12
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              Th.text-center Hora
+              th Motivo de la consulta
+              th Nombre 
+              th Importancia 
+              th.text-center Fecha desde 
+              th.text-center Fecha hasta
+              th Atendido por Médico
+          tbody.table-group-divider
+            each alergia in alergias
               tr
-                th.text-center Fecha
-                Th.text-center Hora
-                th Motivo de la consulta
-                th Nombre 
-                th Importancia 
-                th.text-center Fecha desde 
-                th.text-center Fecha hasta
-                th Atendido por Médico
-            tbody.table-group-divider
-              each alergia in alergias
-                tr
-                  td.text-center= alergia.fecha
-                  td.text-center= alergia.hora
-                  td= alergia.motivo
-                  td= alergia.nombre_alergia
-                  td= alergia.importancia
-                  td.text-center= alergia.fecha_desde 
-                  td.text-center= alergia.fecha_hasta
-                  td= `${alergia.apellido} ${alergia.nombre}`      
-      .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
-        .col-md-12
-        h5.text-center 
-          table.table.table-striped 
-            thead.table.thead-dark
+                td.text-center= alergia.fecha
+                td.text-center= alergia.hora
+                td= alergia.motivo
+                td= alergia.nombre_alergia
+                td= alergia.importancia
+                td.text-center= alergia.fecha_desde 
+                td.text-center= alergia.fecha_hasta
+                td= `${alergia.apellido} ${alergia.nombre}`      
+    .tab-pane.fade#antecedentes(role="tabpanel" aria-labelledby="antecedentes-tab")
+      .col-md-12
+      h5.text-center 
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              th.text-center Hora
+              th Motivo de la consulta
+              th Descripcion
+              th.text-center Fecha desde 
+              th.text-center Fecha hasta
+              th Atendido por Médico
+          tbody.table-group-divider
+            each antecedente in antecedentes
               tr
-                th.text-center Fecha
-                th.text-center Hora
-                th Motivo de la consulta
-                th Descripcion
-                th.text-center Fecha desde 
-                th.text-center Fecha hasta
-                th Atendido por Médico
-            tbody.table-group-divider
-              each antecedente in antecedentes
-                tr
-                  td.text-center= antecedente.fecha
-                  td.text-center= antecedente.hora
-                  td= antecedente.motivo
-                  td= antecedente.descripcion
-                  td.text-center= antecedente.fecha_desde 
-                  td.text-center= antecedente.fecha_hasta
-                  td= `${antecedente.apellido} ${antecedente.nombre}`      
-      .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
-        .col-md-12
-          table.table.table-striped 
-            thead.table.thead-dark
+                td.text-center= antecedente.fecha
+                td.text-center= antecedente.hora
+                td= antecedente.motivo
+                td= antecedente.descripcion
+                td.text-center= antecedente.fecha_desde 
+                td.text-center= antecedente.fecha_hasta
+                td= `${antecedente.apellido} ${antecedente.nombre}`      
+    .tab-pane.fade#habitos(role="tabpanel" aria-labelledby="habitos-tab")
+      .col-md-12
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              th.text-center Hora
+              th Motivo de la consulta
+              th Descripcion
+              th.text-center Fecha desde 
+              th.text-center Fecha hasta
+              th Atendido por Médico
+          tbody.table-group-divider
+            each habito in habitos
               tr
-                th.text-center Fecha
-                th.text-center Hora
-                th Motivo de la consulta
-                th Descripcion
-                th.text-center Fecha desde 
-                th.text-center Fecha hasta
-                th Atendido por Médico
-            tbody.table-group-divider
-              each habito in habitos
-                tr
-                  td.text-center= habito.fecha
-                  td.text-center= habito.hora
-                  td= habito.motivo
-                  td= habito.descripcion
-                  td.text-center= habito.fecha_desde 
-                  td.text-center= habito.fecha_hasta
-                  td= `${habito.apellido} ${habito.nombre}`      
-      .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab")
-        .col-md-12
-          
-          table.table.table-striped 
-            thead.table.thead-dark
-              tr
-                th.text-center Fecha
-                th.text-center Hora
-                th Motivo de la consulta
-                th Nombre genérico
-                th Nombre comercial 
-                th Indicaciones 
-                th Atendido por Médico
-            tbody
+                td.text-center= habito.fecha
+                td.text-center= habito.hora
+                td= habito.motivo
+                td= habito.descripcion
+                td.text-center= habito.fecha_desde 
+                td.text-center= habito.fecha_hasta
+                td= `${habito.apellido} ${habito.nombre}`      
+    .tab-pane.fade#medicamentos(role="tabpanel" aria-labelledby="medicamentos-tab")
+      .col-md-12
+        
+        table.table.table-striped 
+          thead.table.thead-dark
+            tr
+              th.text-center Fecha
+              th.text-center Hora
+              th Motivo de la consulta
+              th Nombre genérico
+              th Nombre comercial 
+              th Indicaciones 
+              th Atendido por Médico
+          tbody

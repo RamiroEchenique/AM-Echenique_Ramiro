@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block js 
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz",
+    crossorigin="anonymous")
+  //script(src="/scripts/agendascript.js" defer)
+  
+block contenido
+  .container
+    .row
+      .col-md-12
+        h1.text-center.mb-4 Dr/a:  #{medico.apellido} #{medico.nombre}
+        .text-center
+        h4.text-center.mt-2 Templates de notas clínicas
+    .row.mt-3 
+        .col-md-6.offset-md-3 
+            select.form-select(name="template-select" id="template-select" onchange="loadTemplate()") 
+                option(value="" disabled selected) Seleccione un template
+                option(value="crear") Crear nuevo template 
+                each template in templates 
+                    option(value=template.id) #{template.titulo}

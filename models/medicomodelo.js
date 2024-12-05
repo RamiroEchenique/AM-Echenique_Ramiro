@@ -41,6 +41,21 @@ class MedicoModelo {
         }
     }
 
+    static async obtenerTemplatesMedicoPorId(medicoId) {
+        try {
+            //const conexion = await crearConexion();
+            const [templates] = await pool.query(`
+                            SELECT * 
+                            FROM templates t
+                            WHERE t.id_medico=?;
+            `, [medicoId]);
+            return templates;
+        } catch (error) {
+            console.error('Error al obtener templates:', error);
+        }
+    }
+
+
 }
 
 module.exports = MedicoModelo;

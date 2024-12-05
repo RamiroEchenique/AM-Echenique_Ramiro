@@ -1,22 +1,20 @@
 body {
-    background-color: #fd781f9c; 
-  }
+  background-color: #fd781f9c; 
+}
 
-  .nav-tabs .nav-link {
-    font-size: 16px; /* Asegúrate de que este tamaño sea el mismo para todas las pestañas */
+.nav-tabs .nav-link {
+  font-size: 16px; /* Asegúrate de que este tamaño sea el mismo para todas las pestañas */
 } 
- 
- /* Cambiar color de fondo y texto en la pestaña activa */
+
+/* Cambiar color de fondo y texto en la pestaña activa */
 .nav-tabs .nav-link.active {
   background-color: #007bff; 
   color: #fff;
 }
 
-/* estilo para la tabla hce*/
+/* estilo para la tabla hce */
 .tarjeta-hce {
   display: flex; 
-  /*flex-direction: column;*/ 
-  /*height: 100%;*/
   background-color: #fd781f9c;
   border: 2px solid #11e029;
 }
@@ -26,13 +24,9 @@ body {
   padding: 20px;
 }
 
-
-/*fin estilo para la tabla hce*/
-
 /* Estilo para el borde de la tarjeta */
 .turno {
-  border-width: 3px; /*  ajustar el valor para hacer el borde más grueso */
-  /*background-color: #fd781f9c;*/
+  border-width: 3px; /* ajustar el valor para hacer el borde más grueso */
 }
 
 /* Estilo para el cuerpo de la tarjeta */
@@ -40,12 +34,10 @@ body {
   padding: 0;
   margin: 0;
 }
-/* Estilo para el cuerpo de la tarjeta */
+
 .card-body .list-group-item {
   border: none; /* Opcional: Remueve bordes para un diseño más limpio */
 }
-
-
 
 /* Estilo para el textarea de Quill de la evolución */
 #editor {

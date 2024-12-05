@@ -46,6 +46,9 @@ block contenido
                     | #{paciente[0].estado ? 'Activo' : 'Inactivo'}
 
     .row.mt-2
-      include tabla_hce.pug
+      .card.border-primary.tarjeta-hce
+        h4.text-center.mt-0 Historia Clínica Electrónica (HCE)
+        include secciones.pug
+        include tabla_hce.pug
 
 

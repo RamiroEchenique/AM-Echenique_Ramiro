@@ -14,7 +14,9 @@ block contenido
     .row
       .col-md-12
         h1.text-center.mb-4 Dr/a:  #{medico.apellido} #{medico.nombre}
-        h4.text-center.mt-5 Agendas del Profesional
+        .text-center
+          a.mt-2(href=`/medicotemplate/${medico.id}` class="btn btn-secondary" target="_blank") Crear Notas Clínicas
+        h4.text-center.mt-2 Agendas del Profesional
 
     .row
       .col-md-6.offset-md-3
@@ -25,9 +27,9 @@ block contenido
         input(type="date" class="form-control mt-3" id="fecha-turno" name="fecha-turno" value=fechaSeleccionada || '')
 
 
-    .row.mt-5
+    .row
       .col-md-12
-        h3.text-center.mt-5 Turnos del Día
+        h3.text-center.mt-1 Turnos del Día
         table.table.table-striped 
           thead.table.thead-dark
             tr
@@ -51,7 +53,7 @@ block contenido
                   td= turno.hora_inicio
                   td= turno.hora_fin
                   td= turno.estadonombre
-                  td gg= turno.idpaciente 
+                  td= turno.idpaciente 
                   td button.btn.btn-info(onclick=`verHCE(${turno.idpaciente})`) Ver
                   td button.btn.btn-success(onclick=`Atender(${turno.idturno})`) Atender
                   
